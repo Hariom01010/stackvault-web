@@ -1,5 +1,5 @@
 import { prisma } from "@/lib/prisma";
-import { Prisma } from "@/generated/prisma";
+import { Prisma } from "@prisma/client";
 
 export async function findWaitlistByEmail(email: string) {
     return prisma.waitlist.findUnique({
