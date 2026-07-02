@@ -41,8 +41,8 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
             <Img
               src={logoUrl}
               alt="StackVault Logo"
-              width="140"
-              height="32"
+              width="250"
+              height="120"
               style={logo}
             />
           </Section>
@@ -89,7 +89,7 @@ export const EmailTemplate: React.FC<Readonly<EmailTemplateProps>> = ({
           {/* Closing Section wrapped in Section container for structural grid alignment */}
           <Section style={closingSection}>
             <Text style={closing}>Thanks for being part of the journey.</Text>
-            <Text style={signature}>— The StackVault Team</Text>
+            <Text style={signature}>- The StackVault Team</Text>
           </Section>
         </Container>
 
