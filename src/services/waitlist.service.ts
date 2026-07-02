@@ -26,7 +26,7 @@ function generateReferralCode(length = 8) {
     return code;
 }
 
-export async function joinWaitlist(data: JoinWaitlistData) {
+export async function joinWaitlist(data: JoinWaitlistData, baseUrl?: string) {
     const email = data.email.trim().toLowerCase();
 
     const existingUser = await findWaitlistByEmail(email);
@@ -67,15 +67,22 @@ export async function joinWaitlist(data: JoinWaitlistData) {
     try {
         const firstName = waitlist.name.trim().split(/\s+/)[0];
 
-        await resend.emails.send({
-            from: "StackVault <onboarding@resend.dev>",
+        const { data: emailData, error: emailError } = await resend.emails.send({
+            from: "StackVault <noreply@stackvault.co.in>",
             to: [waitlist.email],
             subject: "Welcome to StackVault!",
             react: React.createElement(EmailTemplate, {
                 firstName,
                 referralCode: waitlist.referralCode,
+                baseUrl,
             }),
         });
+
+        if (emailError) {
+            console.error("Resend API returned an error:", emailError);
+        } else {
+            console.log("Resend welcome email sent successfully:", emailData);
+        }
     } catch (emailError) {
         console.error("Failed to send welcome email via Resend:", emailError);
     }

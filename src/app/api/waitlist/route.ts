@@ -10,7 +10,8 @@ export async function POST(req: NextRequest) {
 
         const data = JoinWaitlistSchema.parse(body);
 
-        const waitlist = await joinWaitlist(data);
+        const origin = req.nextUrl.origin;
+        const waitlist = await joinWaitlist(data, origin);
 
         return NextResponse.json(waitlist, {
             status: 201,
